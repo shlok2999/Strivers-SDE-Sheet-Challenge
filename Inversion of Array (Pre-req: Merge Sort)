@@ -1,0 +1,48 @@
+// C++ Code
+#include <bits/stdc++.h>
+
+long long merge(long long* arr, int start, int mid, int end)
+{
+    if(start>=end)
+        return 0;
+    int i = start;
+    int j = mid+1;
+    long long ans = 0;
+    vector<long long> t;
+    
+    while(i<=mid && j<=end)
+    {
+        if(arr[i]<=arr[j])
+            t.push_back(arr[i++]);
+        else
+        {
+            ans+=(mid-i+1);
+            t.push_back(arr[j++]);
+        }
+    }
+    
+    while(i<=mid)
+        t.push_back(arr[i++]);
+    while(j<=end)
+        t.push_back(arr[j++]);
+    
+    int n = t.size();
+    for(int k=0;k<n;k++)
+        arr[start+k] = t[k];
+    return ans;
+}
+
+long long solve(long long *arr,int start,int end)
+{
+    if(start>=end)
+        return 0;
+    int mid = (end+start)/2;
+    long long l = solve(arr,start,mid);
+    long long r = solve(arr,mid+1,end);
+    long long m = merge(arr,start,mid,end);
+    return l+r+m;
+}
+long long getInversions(long long *arr, int n){
+    // Write your code here.
+    return solve(arr,0,n-1);
+}
