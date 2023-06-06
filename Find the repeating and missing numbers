@@ -1,0 +1,42 @@
+// C++ Code
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    int tot = 0;
+    int n = A.size();
+    
+    for(int i:A)
+        tot ^= i;
+    for(int i=1;i<=n;i++)
+        tot ^= i;
+    
+    int bit = tot & (-tot); // findind right most set bit
+    
+    
+    int one = 0;
+    int zero = 0;
+    
+    for(int i:A)
+    {
+        if(i & bit)
+            one ^= i;
+        else
+            zero ^= i;
+    }
+    
+    for(int i=1;i<=n;i++)
+    {
+        if(i & bit)
+            one ^= i;
+        else
+            zero ^= i;
+    }
+    
+    for(int i:A)
+    {
+        if(i == one)
+            return {one,zero};
+        else if(i == zero)
+            return {zero,one};
+    }
+    
+    return {-1,-1};
+}
