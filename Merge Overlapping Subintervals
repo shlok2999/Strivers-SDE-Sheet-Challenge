@@ -1,0 +1,36 @@
+// C++ Code
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        set<vector<int>> s;
+        for(vector<int> v:intervals)
+            s.insert(v);
+        
+        vector<vector<int>> ans;
+
+        while(s.size()>1)
+        {
+            vector<int> first = *s.begin();
+            s.erase(s.begin());
+            vector<int> second = *s.begin();
+            s.erase(s.begin());
+            vector<int> temp(2,0);
+            if(first[1] >= second[0])
+            {
+                temp[0] = min(first[0],second[0]);
+                temp[1] = max(first[1],second[1]);
+            }
+            else
+            {
+                ans.push_back(first);
+                temp[0] = second[0];
+                temp[1] = second[1];
+            }
+            s.insert(temp);
+        }
+
+        if(s.size())
+            ans.push_back(*s.begin());
+        return ans;
+    }
+};
