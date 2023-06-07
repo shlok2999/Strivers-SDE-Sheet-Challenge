@@ -1,0 +1,55 @@
+// C++ Code
+#include <bits/stdc++.h> 
+
+int merge(vector<int> &nums,int start,int mid,int end)
+{
+	if(start>=end)
+		return 0;
+	
+	int i=start,j=mid+1;
+	int ans=0;
+	for(;i<=mid;i++)
+	{
+		while(j<=end && nums[i]>2*nums[j])
+			j++;
+		ans+=(j-(mid+1));
+	}
+	i=start;
+	j=mid+1;
+	vector<int> temp;
+	while(i<=mid && j<=end)
+	{
+		if(nums[i]<=nums[j])
+			temp.push_back(nums[i++]);
+		else
+			temp.push_back(nums[j++]);
+	}
+	
+	while(i<=mid)
+		temp.push_back(nums[i++]);
+	while(j<=end)
+		temp.push_back(nums[j++]);
+	
+	for(int k=0;k<temp.size();k++)
+	{
+		nums[start+k]=temp[k];
+	}
+	
+	return ans;
+}
+
+int count(vector<int> &arr,int start,int end)
+{
+	if(start>=end)
+		return 0;
+	int mid = (start+end)/2;
+	int l=count(arr,start,mid);
+	int r=count(arr,mid+1,end);
+	int m=merge(arr,start,mid,end);
+	return l+r+m;
+}
+
+int reversePairs(vector<int> &arr, int n){
+	// Write your code here.	
+	return count(arr,0,n-1);
+}
