@@ -1,0 +1,20 @@
+// C++ Code
+#include <bits/stdc++.h> 
+int subarraysXor(vector<int> &arr, int x)
+{
+    //    Write your code here.
+	int n=arr.size();
+	unordered_map<int,int> freq;
+	int xo = 0;
+	int ans=0;
+	for(int num : arr)
+	{
+		xo = xo ^ num;
+		if(xo == x)
+			ans++;
+		if(freq.find(xo^x) != freq.end())
+			ans+=freq[xo^x];
+		freq[xo]++;
+	}
+	return ans;
+}
