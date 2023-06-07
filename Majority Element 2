@@ -1,0 +1,51 @@
+// C++ code
+#include <bits/stdc++.h> 
+vector<int> majorityElementII(vector<int> &arr)
+{
+    // Write your code here.
+	int n = arr.size();
+	int cnt1 = 0;
+	int first = 0;
+	int cnt2 = 0;
+	int sec = 0;
+
+	for(int i:arr)
+	{
+		if(i == first)
+			cnt1++;
+		else if(i == sec)
+			cnt2++;
+		else if(cnt1 == 0)
+		{
+			cnt1 = 1;
+			first = i;
+		}
+		else if(cnt2 == 0)
+		{
+			cnt2 = 1;
+			sec = i;
+		}
+		else
+		{
+			cnt1--;
+			cnt2--;
+		}
+	}
+	
+	cnt1 = 0;
+	cnt2 = 0;
+	for(int i:arr)
+	{
+		if(i == first)
+			cnt1++;
+		if(i == sec)
+			cnt2++;
+	}
+	int tot = n/3;
+	vector<int> ans;
+	if(cnt1 > tot)
+		ans.push_back(first);
+	if(cnt2 > tot)
+		ans.push_back(sec);
+	return ans;
+}
