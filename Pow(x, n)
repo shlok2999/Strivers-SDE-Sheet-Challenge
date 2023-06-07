@@ -1,0 +1,18 @@
+//C++ Code
+#include <bits/stdc++.h>
+
+int modularExponentiation(int x, int n, int m) {
+	// Write your code here.
+	long long ans = 1;
+	long long val = x;
+	while(n)
+	{
+		if(n%2)
+			ans = (ans * val)%m;
+		val = (val * val)%m;
+		n/=2; 
+	}
+	if(ans<0)
+		ans += m;
+	return ans;
+}
