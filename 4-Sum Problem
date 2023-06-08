@@ -1,0 +1,30 @@
+// C++ Code as on Code Studio
+// This code has flaw that it will work correctly only when all possible sum are distinct
+#include <bits/stdc++.h>
+
+bool common_idx(pair<int,int> a, pair<int,int> b)
+{
+    return (a.first == b.first || a.first == b.second || a.second == b.first || a.second == b.second);
+}
+
+string fourSum(vector<int> arr, int target, int n) {
+    // Write your code here.
+    unordered_map<int,pair<int,int>> umap;
+    
+    for(int i=0;i<n;i++)
+        for(int j=i+1;j<n;j++)
+            umap[arr[i] + arr[j]] = {i,j};
+
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            int rem = target - arr[i] - arr[j];
+            if(umap.find(rem)!=umap.end() && !common_idx(umap[rem],{i,j}))
+                return "Yes";
+        }
+    }
+    
+    return "No";
+
+}
