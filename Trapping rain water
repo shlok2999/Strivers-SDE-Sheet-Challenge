@@ -1,0 +1,51 @@
+//C++ Code
+#include <bits/stdc++.h> 
+long getTrappedWater(long *arr, int n){
+    // Write your code here.
+    long ans = 0;
+
+    stack<int> left;
+    vector<int> l(n);
+    l[0] = 0;
+    left.push(0);
+    for(int i=1;i<n;i++)
+    {
+        while(left.size() && arr[left.top()] <= arr[i])
+            left.pop();
+        if(left.empty())
+        {
+            left.push(i);
+            l[i] = i;
+        }
+        else
+            l[i] = left.top();
+        // left.push(i);
+    }
+
+    stack<int> right;
+    vector<int> r(n);
+    r[n-1] = n-1;
+    right.push(n-1);
+    for(int i=n-2;i>=0;i--)
+    {
+        while(right.size() && arr[right.top()] <= arr[i])
+            right.pop();
+        if(right.empty())
+        {
+            right.push(i);
+            r[i] = i;
+        }
+        else
+            r[i] = right.top();
+        // right.push(i);
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        // long len = r[i]-l[i]-1;
+        long h = min(arr[l[i]],arr[r[i]]) - arr[i];
+        ans += (h);
+    }
+    return ans;
+
+}
