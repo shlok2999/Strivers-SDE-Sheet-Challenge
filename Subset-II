@@ -1,0 +1,36 @@
+//C++ Code
+#include<bits/stdc++.h> 
+void solve(vector<int>& nums,int index, vector<int> subset,vector<vector<int>>& ans)
+{
+        ans.push_back(subset);
+        int n=nums.size();
+        // cout<<index;
+        if(index>=n)
+        {
+            // cout<<"hello";
+            return;
+        }
+        
+        int start=index+1;
+        for(int i=start;i<nums.size();i++)
+        {
+            if(i==start || nums[i]!=nums[i-1])
+            {
+                // cout<<"hello";
+                subset.push_back(nums[i]);
+                solve(nums,i,subset,ans);
+                subset.pop_back();
+            }
+                
+        }
+    }
+
+
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    // Write your code here.
+    vector<vector<int>> ans;
+    sort(arr.begin(),arr.end());
+    solve(arr ,-1,{},ans);
+    return ans;
+}
