@@ -1,0 +1,36 @@
+// C++ Code
+#include<bits/stdc++.h>
+ void solve(vector<int>& nums, int target,int index,vector<int> subset,vector<vector<int>>& ans,int csum)
+    {
+        // int csum = sum(subset);
+        int n = nums.size();
+        if(csum == target)
+        {
+//             sort()
+            ans.push_back(subset);
+//             return;
+        }
+        if(index>=n)
+            return;
+        int start=index+1;
+        for(int i=start;i<n;i++)
+        {
+            // if(i==start )
+            // {
+                subset.push_back(nums[i]);
+                solve(nums,target,i,subset,ans,csum + nums[i]);
+                subset.pop_back();
+            // }
+        }
+    }
+
+
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    // Write your code here.
+    vector<vector<int>> ans;
+        // sort(arr.begin(),arr.end());
+        solve(arr,k,-1,{},ans,0);
+        // sort(ans.begin(),ans.end());
+        return ans;
+}
