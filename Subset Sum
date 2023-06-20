@@ -1,0 +1,21 @@
+// C++ Code
+#include <bits/stdc++.h> 
+void solve(vector<int>& num, int i,int sum, vector<int>& ans)
+{
+    int n = num.size();
+    if(i == n)
+    {
+        ans.push_back(sum);
+        return;
+    }
+    solve(num,i+1,sum,ans);
+    solve(num,i+1,sum+num[i],ans);
+}
+vector<int> subsetSum(vector<int> &num)
+{
+    // Write your code here.
+    vector<int> ans;
+    solve(num,0,0,ans);
+    sort(ans.begin(),ans.end());
+    return ans;
+}
