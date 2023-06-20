@@ -1,0 +1,47 @@
+//C++ Code
+#include<algorithm>
+
+struct meet
+{
+    int start;
+    int end;
+    int index;
+};
+
+bool comp(meet& a, meet& b)
+{
+    if(a.end<b.end)
+        return true;
+    else if(a.end > b.end)
+        return false;
+    else if(a.index < b.index)
+        return true;
+    return false;
+}
+
+vector<int> maximumMeetings(vector<int> &start, vector<int> &end) {
+    // Write your code here.
+    int n = start.size();
+    vector<meet> t(n);
+    for(int i=0;i<n;i++)
+    {
+        t[i].start=start[i];
+        t[i].end = end[i];
+        t[i].index = i+1;
+    }
+    
+    sort(t.begin(),t.end(),comp);
+    vector<int> ans;
+    ans.push_back(t[0].index);
+    int s = t[0].end;
+    for(int i=1;i<n;i++)
+    {
+        if(t[i].start >s)
+        {
+            s = t[i].end ;
+            ans.push_back(t[i].index);
+        }
+    }
+    
+    return ans;
+}
