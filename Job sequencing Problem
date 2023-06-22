@@ -1,0 +1,35 @@
+// C++ Code
+#include <bits/stdc++.h>
+bool comp(vector<int> &a, vector<int> &b)
+{
+    if (a[1]>b[1])
+        return 1;
+    else if( a[1] == b[1] && a[1]<b[1])
+        return 1;
+    else
+        return 0;
+}
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    // Write your code here
+    sort(jobs.begin(),jobs.end(),comp);
+    int max_time = 0;
+    int ans = 0;
+    for(vector<int> &j:jobs)
+    {
+        max_time = max(max_time,j[0]);
+    }
+    for(int i=max_time; i>0;i--)
+    {
+        for(vector<int> &j:jobs)
+        {
+            if(j[0] >= i && j[1] != -1)
+            {
+                ans += j[1];
+                j[1] = -1;
+                break;
+            }
+        }
+    }
+    return ans;
+}
