@@ -1,0 +1,20 @@
+//C++ Code
+
+#include<bits/stdc++.h>
+// Can be used only whn sum of 2 coins is not greater than other con. Other coin is greater than both coins taken for sum
+int findMinimumCoins(int V) 
+{
+    // Write your code here
+    vector<int> coins =  {1, 2, 5, 10, 20, 50, 100, 500, 1000};
+    int M = coins.size();
+    int ans=0;
+    for(int i=M-1;i>=0;i--)
+    {
+        if(V>=coins[i])
+        {
+            ans += (V/coins[i]);
+            V = V%coins[i];
+        }
+    }
+    return ans;
+}
